@@ -4,14 +4,9 @@ project(oms)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(oms src/main.cpp)
-#enable test module
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-# Add the test executable
-add_executable(oms test/mainTest.cpp)
-target_link_libraries(oms ${GTEST_LIBRARIES} pthread)
+add_executable(${PROJECT_NAME} src/main.cpp)
 
-## Enable testing
-#enable_testing()
-#add_test(NAME MyTests COMMAND SimpleProjectTests)
+add_subdirectory(lib)
+#target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib/include)
+target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib/src)
+target_link_libraries(${PROJECT_NAME} adder)
